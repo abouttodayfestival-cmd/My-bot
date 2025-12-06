@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My AI Bot</title>
+</head>
+<body>
+<h2>My Web Bot</h2>
+
+<input id="msg" placeholder="Type message...">
+<button onclick="send()">Send</button>
+
+<p id="res">Reply will appear here...</p>
+
+<script>
+async function send() {
+  const message = document.getElementById("msg").value;
+
+  let response = await fetch("/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message })
+  });
+
+  const data = await response.json();
+  document.getElementById("res").innerText = data.reply;
+}
+</script>
+
+</body>
+</html>
